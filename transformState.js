@@ -1,27 +1,27 @@
 function transformStateWithClones(state, actions) {
-  const stateHistory = [];
-  let currentState = { ...state };
+  const stateHistory = [];  // Array to hold the state after each action
+  let currentState = { ...state };  // Create a clone of the initial state
 
   actions.forEach(action => {
     switch (action.type) {
       case 'clear':
-        currentState = {};  // Создаем пустое состояние
+        currentState = {};  // Create a new empty state
         break;
       case 'addProperties':
-        currentState = { ...currentState, ...action.extraData };  // Добавляем новые свойства
+        currentState = { ...currentState, ...action.extraData };  // Add properties to the state
         break;
       case 'removeProperties':
         action.keysToRemove.forEach(key => {
-          delete currentState[key];  // Удаляем свойства из состояния
+          delete currentState[key];  // Remove specified keys
         });
         break;
       default:
-        break;
+        console.log(`Unknown action type: ${action.type}`);
     }
 
-    // Перемещаем эту строку за пределы switch, но внутри forEach
+    // After each action, push the current state into stateHistory
     stateHistory.push({ ...currentState });
   });
 
-  return stateHistory;
+  return stateHistory;  // Return the state history
 }

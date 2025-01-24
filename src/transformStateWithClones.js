@@ -32,7 +32,6 @@ function transformStateWithClones(state, actions) {
         throw new Error(`Unknown action type: ${action.type}`);
     }
 
-    // Сохраняем текущую копию состояния в историю
     stateHistory.push({ ...currentState });
   });
 
